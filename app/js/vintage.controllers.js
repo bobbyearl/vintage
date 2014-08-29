@@ -1,4 +1,11 @@
-vintage.controller('HomeController', function($scope, $state, $stateParams, MovieService) {
+vintage.controller('HomeController', ['$rootScope', 'growl', function($rootScope, growl) {
+  if ($rootScope.loggedOut) {
+    $rootScope.loggedOut = false; 
+    growl.addSuccessMessage('Logout Successful', {ttl: 3000});
+  }
+}]);
+
+vintage.controller('SearchController', function($scope, $state, $stateParams, MovieService) {
 
   $scope.byTitle = function(title) {
     $state.go('home', { query: title });
@@ -19,6 +26,21 @@ vintage.controller('HomeController', function($scope, $state, $stateParams, Movi
   
 });
 
-vintage.controller('LoginController', function($scope) {
+vintage.controller('LoginController', function($rootScope, $scope, $state, AuthService) {
+  $scope.login = function() {
+    AuthService.fake();
+    $rootScope.user = AuthService.user();
+    $state.go('home');
+  }
+});
+
+vintage.controller('LogoutController', function($rootScope, $state, AuthService) {
+  AuthService.logout();
+  $rootScope.user = AuthService.user();
+  $rootScope.loggedOut = true;
+  $state.go('home');
+});
+
+vintage.controller('RegisterController', function($scope) {
   
 });

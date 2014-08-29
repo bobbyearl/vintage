@@ -14,7 +14,6 @@ var Users = restful.model('users', mongoose.Schema({
   githubName: String
 }));
 Users.methods(['get', 'put', 'post', 'delete']);
-//Users.register(app, '/api/users');
 
 // Movies API
 var Movies = restful.model('movies', mongoose.Schema({
@@ -23,7 +22,6 @@ var Movies = restful.model('movies', mongoose.Schema({
   condition: String
 }));
 Movies.methods(['get', 'put', 'post', 'delete']);
-//Movies.register(app, '/api/movies');
 
 // Needed to expose API
 app.use(bodyParser());

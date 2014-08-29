@@ -1,17 +1,27 @@
-vintage.service('AuthService', function() {
+vintage.service('AuthService', function($q, $window) {
   
-  var _user;
+  this.fake = function() {
+    $window.localStorage.setItem('user', JSON.stringify({
+      id: 12345,
+      name: 'Bobby Earl',
+      token: 'asdf'
+    }));
+  };
   
-  this.login = function(u) {
-    _user = u;
+  this.login = function(user) {
+    
   };
   
   this.logout = function() {
-    _user = {}; 
+    $window.localStorage.setItem('user', '');
   }
   
   this.user = function() {
-    return _user;
+    try {
+      return angular.fromJson($window.localStorage.getItem('user'));
+    } catch(e) {
+      return false;
+    }
   };
   
 });

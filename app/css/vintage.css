@@ -1,0 +1,23 @@
+.logo {
+  padding-bottom: 30px;
+}
+
+.navbar {
+  z-index: 1;
+}
+
+.navbar .active {
+  background-color: #EFEFEF;
+}
+
+.icon-bar {
+  background-color: #000;
+}
+
+.growl {
+  left: 50%;
+  position: fixed;
+  margin: 0 0 0 -25%;
+  width: 50%;
+  z-index: 2;
+}
