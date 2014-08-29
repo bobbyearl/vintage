@@ -8,3 +8,16 @@
     </div>
   </div>    
 </form>
+
+<div ng-show="results" ng-hide="selected">
+  <div ng-repeat="result in results" class="media">
+    <div ng-controller="MovieImageController" class="pull-left">
+      <img ng-src="{{ getPath(result.poster_path) }}" class="img-responsive" />
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">{{result.title}}</h4>
+      <p ng-show="result.release_date">Released: <em>{{result.release_date}}</em></p>
+      <a class="btn btn-sm btn-default" ui-sref="user-inventory-add-movie({ userId: authUser.id, movieId: result.id, query: query })">I have this movie</a>
+    </div>
+  </div>
+</div>

@@ -25,7 +25,7 @@ vintage.config(function($stateProvider) {
   
   $stateProvider.state('movies', {
       templateUrl: 'partials/movies.html',
-      url: '/movies',
+      url: '/movies/:action/:query/:page',
       controller: 'MoviesController'
   });
   

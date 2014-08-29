@@ -1,3 +1,55 @@
+<div class="btn-group pull-right">
+  <a ui-sref="movies({ action: 'search' })" ng-class="{'active': $stateParams.action == 'search'}" class="btn btn-default">Search By Title</a>
+  <a ui-sref="movies({ action: 'browse' })" ng-class="{'active': $stateParams.action == 'browse'}" class="btn btn-default">Browse By Location</a>
+</div>
+
 <h2>Movies</h2>
 
-<p>Search</p>
+<div ng-show="$stateParams.action == 'search'">
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control input-lg btn-lg" type="text" ng-model="query" ng-enter="search(query);" placeholder="Search By Title">
+        <span class="input-group-btn">
+          <button class="btn btn-primary btn-lg" ng-click="search(query);">Search</button>
+        </span>
+      </div>
+    </div>    
+  </form>
+
+  <div ng-show="response.results" ng-hide="selected">
+    <p>
+      {{response.total_results}} possible match<ng-pluralize count="response.total_results" when="{ '1': '', 'other': 'es' }"></ng-pluralize> found.
+    </p>
+    <div ng-repeat="result in response.results" class="media">
+      <div ng-controller="MoviesImageController" class="pull-left">
+        <img ng-src="{{ getPath(result.poster_path) }}" class="img-responsive" />
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{result.title}}</h4>
+        <p ng-show="result.release_date">
+          Released: <em>{{result.release_date | amDateFormat:'MMMM Do YYYY'}}</em>
+        </p>
+        <div class="btn-group">
+          <a class="btn btn-sm btn-default" ui-sref="movies-info({ id: result.id })">More Info</a>
+          <a class="btn btn-sm btn-default" ui-sref="movies-bottom({ id: result.id })">Request Movie</a>
+          <a class="btn btn-sm btn-default" ui-sref="movies-add({ id: result.id })">Add to My Inventory</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div ng-show="response.total_pages > 1">
+    <p>Total Pages: {{response.total_pages}}</p>
+    <ul class="pagination">
+      <li ng-repeat="page in total_pages" ng-class="{'active': response.page == $index}">
+        <a ui-sref="">HEY{{$index}}</a>
+      </li>
+    </ul>
+  </div>
+  
+</div>
+
+<div ng-show="$stateParams.action == 'browse'">
+  <p>Browse by location</p>
+</div>

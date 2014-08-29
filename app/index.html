@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+  <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css">-->
   <link rel="stylesheet" href="lib/fontAwesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="lib/angular-growl/angular-growl.min.css">
   <link rel="stylesheet" href="css/vintage.css">
@@ -37,7 +38,7 @@
             <a ui-sref="login">Login</a>
           </li>
           <li ng-if="user" ng-class="{'active': $state.includes('movies')}">
-            <a ui-sref="movies">Movies</a>
+            <a ui-sref="movies({ action: 'search' })">Movies</a>
           </li>
           <li ng-if="user" ng-class="{'active': $state.includes('profile')}">
             <a ui-sref="profile">My Profile</a>
@@ -53,9 +54,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        
         <div ui-view></div>
-        
       </div>
     </div>
   </div>
@@ -73,6 +72,7 @@
   <script src="lib/angularUiRouter/angular-ui-router.min.js"></script>
   <script src="lib/safeApply/Scope.SafeApply.min.js"></script>
   <script src="lib/angular-growl/angular-growl.min.js"></script>
+  <script src="lib/angular-moment/angular-moment.min.js"></script>
   <script src="js/vintage.app.js"></script>
   <script src="js/vintage.routes.js"></script>
   <script src="js/vintage.controllers.js"></script>
