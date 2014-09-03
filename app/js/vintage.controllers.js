@@ -5,7 +5,7 @@ vintage.controller('HomeController', function($rootScope, $scope, $stateParams, 
   }
   
   $scope.search = function(query) {
-    $state.go('movies', { action: 'search', query: query });
+    $state.go('movies', { action: 'search', query: query, page: 1 });
   };
 });
 
@@ -14,7 +14,7 @@ vintage.controller('MoviesController', function($scope, $state, $stateParams, Mo
   // Automatically load the search screen
   if ($stateParams.query) {
     $scope.query = $stateParams.query;
-    MovieService.byTitle($stateParams.query).success(function(response) {
+    MovieService.byTitle($stateParams.query, $stateParams.page).success(function(response) {
       console.log(response);
       $scope.response = response;
     }).error(function() {        
@@ -26,7 +26,7 @@ vintage.controller('MoviesController', function($scope, $state, $stateParams, Mo
   }
   
   $scope.search = function(q) {
-    $state.go('movies', { action: 'search', query: q });
+    $state.go('movies', { action: 'search', query: q, page: 1 });
   };
   
   $scope.getDescription = function(id) {
@@ -39,18 +39,22 @@ vintage.controller('MoviesController', function($scope, $state, $stateParams, Mo
     });
   }
   
+  $scope.hasMovie = function(movie) {
+    return false; 
+  }
+  
 });
 
 vintage.controller('MoviesImageController', function($scope) {
-  /*
-      <img class="media-object" ng-src="{{imgPrefix}}{{result.poster_path}}" alt="" ng-show="result.poster_path">
-      <img class="media-object" ng-src="http://placehold.it/92x138&text=No+Poster+Available" alt="" ng-hide="result.poster_path">
-  */
   var base = 'http://image.tmdb.org/t/p/w92/',
       unavailable = 'http://placehold.it/92x138&text=Image+Available';
   $scope.getPath = function(path) {
     return path ? (base + path) : unavailable;
   }
+});
+
+vintage.controller('MovieController', function($scope) {
+  
 });
 
 vintage.controller('LoginController', function($rootScope, $scope, $state, AuthService) {

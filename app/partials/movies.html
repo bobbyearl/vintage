@@ -30,11 +30,16 @@
         <p ng-show="result.release_date">
           Released: <em>{{result.release_date | amDateFormat:'MMMM Do YYYY'}}</em>
         </p>
-        <div class="btn-group">
-          <a class="btn btn-sm btn-default" ui-sref="movies-info({ id: result.id })">More Info</a>
-          <a class="btn btn-sm btn-default" ui-sref="movies-bottom({ id: result.id })">Request Movie</a>
-          <a class="btn btn-sm btn-default" ui-sref="movies-add({ id: result.id })">Add to My Inventory</a>
-        </div>
+        <a class="btn btn-sm btn-primary" ui-sref="movies-info({ id: result.id })">
+          <span ng-show="!hasMovie(result)">Request Movie</span>
+          <span ng-show="hasMovie(result)">More Info</span>
+        </a>
+        <button type="button" class="btn btn-sm btn-success" ng-show="!hasMovie(result)" ng-click="add(result)">
+          Add to My Inventory
+        </button>
+        <button type="button" class="btn btn-sm btn-danger" ng-show="hasMovie(result)" ng-click="remove(result)">
+          Remove from My Inventory
+        </button>
       </div>
     </div>
   </div>
@@ -42,8 +47,8 @@
   <div ng-show="response.total_pages > 1">
     <p>Total Pages: {{response.total_pages}}</p>
     <ul class="pagination">
-      <li ng-repeat="page in total_pages" ng-class="{'active': response.page == $index}">
-        <a ui-sref="">HEY{{$index}}</a>
+      <li ng-repeat="i in range(response.total_pages) track by $index" ng-class="{'active': response.page == ($index + 1)}">
+        <a ui-sref="movies({ page: $index + 1 })">{{$index + 1}}</a>
       </li>
     </ul>
   </div>

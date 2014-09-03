@@ -5,6 +5,10 @@ var express = require('express'),
     mongoose = restful.mongoose,
     app = express();
 
+// Needed to expose API
+app.use(bodyParser());
+app.use(methodOverride());
+
 // Connect to our database
 mongoose.connect('mongodb://localhost/vintage');
 
@@ -23,13 +27,9 @@ var Movies = restful.model('movies', mongoose.Schema({
 }));
 Movies.methods(['get', 'put', 'post', 'delete']);
 
-// Needed to expose API
-app.use(bodyParser());
-app.use(methodOverride());
-
 // Expose API
-app.use('/api/users', Users);
-app.use('/api/movies', Movies);
+Users.register(app, '/api/users');
+Movies.register(app, '/api/movies');
 
 // Expose app
 app.use(express.static(__dirname + '/app'));

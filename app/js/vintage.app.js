@@ -11,6 +11,10 @@ vintage.run(function($rootScope, $state, $stateParams, AuthService) {
   $rootScope.user = AuthService.user();
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
+  
+  $rootScope.range = function(n) {
+    return new Array(n);
+  };
 });
 
 // http://stackoverflow.com/questions/15417125/submit-form-on-pressing-enter-with-angularjs
